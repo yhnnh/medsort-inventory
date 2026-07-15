@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MedSort — Live Inventory</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="brand-mark">MS</span>
+    <div class="brand-text">
+      <h1>MedSort<span class="brand-sub">Live Inventory</span></h1>
+    </div>
+  </div>
+  <div class="status">
+    <span class="status-dot" id="statusDot"></span>
+    <span id="statusText">connecting…</span>
+    <span class="divider">|</span>
+    <span id="clock">--:--:--</span>
+  </div>
+</header>
+
+<main>
+  <section class="bins" id="bins">
+    <!-- bin cards injected by JS -->
+  </section>
+
+  <section class="alerts" id="alerts">
+    <!-- out-of-stock / low-stock banner injected by JS, hidden when everything is OK -->
+  </section>
+
+  <section class="lower">
+    <div class="panel feed-panel">
+      <div class="panel-head">
+        <h2>Sort log</h2>
+        <span class="panel-note">most recent first</span>
+      </div>
+      <div class="feed" id="feed">
+        <p class="feed-empty">Waiting for the first sort event…</p>
+      </div>
+    </div>
+
+    <div class="panel dist-panel">
+      <div class="panel-head">
+        <h2>Distribution</h2>
+        <span class="panel-note" id="totalCount">0 total</span>
+      </div>
+      <div class="dist" id="dist"></div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <span>Automated Medicine Segregation &amp; Inventory System</span>
+  <button id="resetBtn" class="reset-btn">Reset counts</button>
+</footer>
+
+<script src="{{ url_for('static', filename='dashboard.js') }}"></script>
+</body>
+</html>
