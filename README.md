@@ -23,8 +23,8 @@ pip install -r requirements.txt
 python app.py
 ```
 
-Open **http://localhost:5000** — you'll see 5 empty bins (Biogesic, Amoxil, Medicol Advance,
-Allerta, Dolfenal).
+Open **http://localhost:5000** — you'll see 5 empty bins (Biogesic, Neozep, Medicol Advance,
+Allerta, Tuseran Forte).
 
 Test it without any hardware by sending a fake sort event from a second terminal:
 

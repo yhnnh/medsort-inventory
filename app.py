@@ -29,11 +29,11 @@ DB_PATH = os.path.join(BASE_DIR, "instance", "inventory.db")
 # nothing else in the code needs to change if you add/remove one.
 # "threshold" = low-stock warning level (count at or below this = "Low stock").
 KNOWN_MEDICINES = [
-    {"name": "Biogesic",       "generic": "Paracetamol",     "bin": 1, "threshold": 10},
-    {"name": "Amoxil",         "generic": "Amoxicillin",     "bin": 2, "threshold": 10},
-    {"name": "Medicol Advance","generic": "Ibuprofen",       "bin": 3, "threshold": 10},
-    {"name": "Allerta",        "generic": "Cetirizine",      "bin": 4, "threshold": 10},
-    {"name": "Dolfenal",       "generic": "Mefenamic Acid",  "bin": 5, "threshold": 10},
+    {"name": "Biogesic",       "generic": "Paracetamol",                              "bin": 1, "threshold": 10},
+    {"name": "Neozep",         "generic": "Phenylephrine/Chlorphenamine/Paracetamol", "bin": 2, "threshold": 10},
+    {"name": "Medicol Advance","generic": "Ibuprofen",                                "bin": 3, "threshold": 10},
+    {"name": "Allerta",        "generic": "Cetirizine",                               "bin": 4, "threshold": 10},
+    {"name": "Tuseran Forte",  "generic": "Dextromethorphan/Phenylpropanolamine/Paracetamol", "bin": 5, "threshold": 10},
 ]
 
 # Optional shared-secret so random people on the internet can't spam
@@ -106,6 +106,7 @@ def init_db():
         """
     )
     # Seed the five known medicines if not already present
+    known_names = [med["name"] for med in KNOWN_MEDICINES]
     for med in KNOWN_MEDICINES:
         conn.execute(
             """
@@ -114,6 +115,15 @@ def init_db():
             """,
             (med["name"], med["generic"], med["bin"], med.get("threshold", 10), datetime.now(timezone.utc).isoformat()),
         )
+
+    # Remove any leftover medicines that were renamed/removed from KNOWN_MEDICINES
+    # (e.g. you renamed "Amoxil" to "Neozep" in this file — the old row won't
+    # update itself, so we drop rows that no longer match the current list).
+    placeholders = ",".join("?" for _ in known_names)
+    conn.execute(f"DELETE FROM sort_events WHERE medicine NOT IN ({placeholders})", known_names)
+    conn.execute(f"DELETE FROM dispense_events WHERE medicine NOT IN ({placeholders})", known_names)
+    conn.execute(f"DELETE FROM inventory WHERE medicine NOT IN ({placeholders})", known_names)
+
     conn.commit()
     conn.close()
 
