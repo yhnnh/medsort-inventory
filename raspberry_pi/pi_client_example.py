@@ -16,7 +16,7 @@ DASHBOARD_URL = "https://your-deployed-site.example.com"  # <-- change after dep
 API_KEY = "changeme-dev-key"  # <-- must match MEDSORT_API_KEY on the server
 
 # Must match the "medicine" values used in app.py's KNOWN_MEDICINES
-VALID_MEDICINES = {"Biogesic", "Amoxil", "Medicol Advance", "Allerta", "Dolfenal"}
+VALID_MEDICINES = {"Biogesic", "Neozep", "Medicol Advance", "Allerta", "Tuseran Forte"}
 
 
 def report_sort(medicine: str, confidence: float = None, timeout: float = 3.0) -> bool:
