@@ -9,7 +9,7 @@
   --good: #4FD1C5;
 
   --c1: #4FD1C5; /* Biogesic */
- --c2: #F6AD55; /* Neozep */
+  --c2: #F6AD55; /* Neozep */
   --c3: #FC8181; /* Medicol Advance */
   --c4: #63B3ED; /* Allerta */
   --c5: #B794F4; /* Tuseran Forte */
@@ -100,7 +100,7 @@ main { padding: 28px 32px 40px; max-width: 1280px; margin: 0 auto; }
 
 .bins {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 16px;
   margin-bottom: 24px;
 }
@@ -143,6 +143,8 @@ main { padding: 28px 32px 40px; max-width: 1280px; margin: 0 auto; }
   font-size: 11.5px;
   color: var(--text-muted);
   margin-top: 1px;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .bin-gauge {
@@ -394,11 +396,11 @@ footer {
 
 /* ---------- Responsive ---------- */
 @media (max-width: 980px) {
-  .bins { grid-template-columns: repeat(3, 1fr); }
+  .bins { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .lower { grid-template-columns: 1fr; }
 }
 @media (max-width: 640px) {
-  .bins { grid-template-columns: repeat(2, 1fr); }
+  .bins { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .topbar { flex-direction: column; align-items: flex-start; gap: 10px; }
 }
 
