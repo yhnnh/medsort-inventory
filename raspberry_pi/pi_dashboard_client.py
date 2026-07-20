@@ -1,22 +1,19 @@
 """
 Runs ON the Raspberry Pi. Call `report_sort(medicine, confidence)` right
-after your ResNet/OpenCV classifier decides what medicine was just seen,
-and right before (or after) you send the sorting command to the ESP32.
+after your classifier decides what medicine was just seen, and right
+after you send the sorting command to the ESP32.
 
 Install once on the Pi:
     pip install requests
-
-Set the dashboard URL to your deployed site once it's online, e.g.
-    https://medsort-dashboard.onrender.com
 """
 
 import requests
 
-DASHBOARD_URL = "https://your-deployed-site.example.com"  # <-- change after deploying
-API_KEY = "changeme-dev-key"  # <-- must match MEDSORT_API_KEY on the server
+DASHBOARD_URL = "https://medsort-inventory.onrender.com"
+API_KEY = "medsort2026secret"  # must match MEDSORT_API_KEY set on Render
 
 # Must match the "medicine" values used in app.py's KNOWN_MEDICINES
-VALID_MEDICINES = {"BIOGESIC", "NEOZEP", "MEDICOL_ADVANCE", "ALLERTA", "TUSERAN_FORTE"}
+VALID_MEDICINES = {"Biogesic", "Neozep", "Medicol Advance", "Allerta", "Tuseran Forte"}
 
 
 def report_sort(medicine: str, confidence: float = None, timeout: float = 3.0) -> bool:
@@ -48,17 +45,12 @@ def report_sort(medicine: str, confidence: float = None, timeout: float = 3.0) -
 
 
 # ------------------------------------------------------------------
-# Example integration into your existing sort loop
+# Quick standalone test — run this file directly to confirm the Pi
+# can actually reach the live dashboard before wiring it into the
+# full classifier/ESP32 loop.
+#     python pi_dashboard_client.py
 # ------------------------------------------------------------------
 if __name__ == "__main__":
-    # This block simulates what your real loop already does:
-    #   1. IR sensor triggers capture
-    #   2. classifier (ResNet) returns a label + confidence
-    #   3. ESP32 gets the sort command
-    #   4. dashboard gets told about it (this call)
-
-    classified_medicine = "BIOGESIC"   # <- replace with your model's output
-    classifier_confidence = 0.94       # <- replace with your model's confidence score
-
-    # send_sort_command_to_esp32(classified_medicine)   # your existing ESP32 code
-    report_sort(classified_medicine, classifier_confidence)
+    print("Sending a test sort event to:", DASHBOARD_URL)
+    ok = report_sort("Biogesic", 0.94, timeout=60)  # longer timeout in case Render is asleep
+    print("Success!" if ok else "Failed — check DASHBOARD_URL / API_KEY / your internet connection.")
