@@ -8,11 +8,11 @@
   --text-dim: #5B6773;
   --good: #4FD1C5;
 
-  --c1: #4FD1C5; /* Biogesic */
-  --c2: #F6AD55; /* Neozep */
-  --c3: #FC8181; /* Medicol Advance */
-  --c4: #63B3ED; /* Allerta */
-  --c5: #B794F4; /* Tuseran Forte */
+  --c1: #4FD1C5; /* BIOGESIC */
+  --c2: #F6AD55; /* NEOZEP */
+  --c3: #FC8181; /* MEDICOL_ADVANCE */
+  --c4: #63B3ED; /* ALLERTA */
+  --c5: #B794F4; /* TUSERAN_FORTE */
 
   --font-display: 'Space Grotesk', sans-serif;
   --font-body: 'Inter', sans-serif;
@@ -137,6 +137,8 @@ main { padding: 28px 32px 40px; max-width: 1280px; margin: 0 auto; }
   font-weight: 600;
   font-size: 15px;
   margin-top: 2px;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
 }
 
 .bin-generic {

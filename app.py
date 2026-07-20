@@ -147,7 +147,7 @@ def record_sort():
     Expected JSON body:
     {
         "api_key": "changeme-dev-key",
-        "medicine": "Biogesic",
+        "medicine": "BIOGESIC",  # must match KNOWN_MEDICINES
         "confidence": 0.94        # optional, from the classifier
     }
     """
