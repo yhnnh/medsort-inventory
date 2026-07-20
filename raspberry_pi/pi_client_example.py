@@ -16,7 +16,7 @@ DASHBOARD_URL = "https://your-deployed-site.example.com"  # <-- change after dep
 API_KEY = "changeme-dev-key"  # <-- must match MEDSORT_API_KEY on the server
 
 # Must match the "medicine" values used in app.py's KNOWN_MEDICINES
-VALID_MEDICINES = {"Biogesic", "Neozep", "Medicol Advance", "Allerta", "Tuseran Forte"}
+VALID_MEDICINES = {"BIOGESIC", "NEOZEP", "MEDICOL_ADVANCE", "ALLERTA", "TUSERAN_FORTE"}
 
 
 def report_sort(medicine: str, confidence: float = None, timeout: float = 3.0) -> bool:
@@ -57,7 +57,7 @@ if __name__ == "__main__":
     #   3. ESP32 gets the sort command
     #   4. dashboard gets told about it (this call)
 
-    classified_medicine = "Biogesic"   # <- replace with your model's output
+    classified_medicine = "BIOGESIC"   # <- replace with your model's output
     classifier_confidence = 0.94       # <- replace with your model's confidence score
 
     # send_sort_command_to_esp32(classified_medicine)   # your existing ESP32 code
